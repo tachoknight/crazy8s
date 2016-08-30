@@ -8,12 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		0F367E0C1D761BE800D7EA1E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F367E0B1D761BE800D7EA1E /* main.swift */; };
+		0F367E141D761CE300D7EA1E /* card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F367E131D761CE300D7EA1E /* card.swift */; };
+		0F367E161D76253D00D7EA1E /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F367E151D76253D00D7EA1E /* extensions.swift */; };
+		0F367E181D76297F00D7EA1E /* player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F367E171D76297F00D7EA1E /* player.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0F367E081D761BE800D7EA1E /* Crazy8s.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crazy8s.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F367E0B1D761BE800D7EA1E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		0F367E0D1D761BE800D7EA1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0F367E131D761CE300D7EA1E /* card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = card.swift; sourceTree = "<group>"; };
+		0F367E151D76253D00D7EA1E /* extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
+		0F367E171D76297F00D7EA1E /* player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = player.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +54,9 @@
 			children = (
 				0F367E0B1D761BE800D7EA1E /* main.swift */,
 				0F367E0D1D761BE800D7EA1E /* Info.plist */,
+				0F367E131D761CE300D7EA1E /* card.swift */,
+				0F367E151D76253D00D7EA1E /* extensions.swift */,
+				0F367E171D76297F00D7EA1E /* player.swift */,
 			);
 			path = Crazy8s;
 			sourceTree = "<group>";
@@ -108,7 +117,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F367E181D76297F00D7EA1E /* player.swift in Sources */,
 				0F367E0C1D761BE800D7EA1E /* main.swift in Sources */,
+				0F367E141D761CE300D7EA1E /* card.swift in Sources */,
+				0F367E161D76253D00D7EA1E /* extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
