@@ -1,5 +1,10 @@
 import Foundation
 
+//
+// For Linux:
+// swiftc -DDEBUG card.swift extensions.swift main.swift player.swift
+//
+
 let PLAYERS = 4
 
 //
