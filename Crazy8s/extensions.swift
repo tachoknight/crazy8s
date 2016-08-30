@@ -8,7 +8,11 @@ extension MutableCollectionType where Index == Int {
 		if count < 2 { return }
 
 		for i in startIndex ..< endIndex - 1 {
-			let j = Int(arc4random_uniform(UInt32(endIndex - i))) + i
+			#if os(Linux)
+				let j = Int(random() % (endIndex - i)) + i
+			#else
+				let j = Int(arc4random_uniform(UInt32(endIndex - i))) + i
+			#endif
 			guard i != j else { continue }
 			swap(&self[i], &self[j])
 		}
