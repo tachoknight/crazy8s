@@ -21,7 +21,7 @@ for idx in 1 ... PLAYERS {
 var deck = createDeck()
 
 // From the MutableCollectionType extension
-deck.shuffleInPlace()
+deck.shuffle()
 
 #if DEBUG
 	for card in deck {
