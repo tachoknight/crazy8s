@@ -61,3 +61,63 @@ for cardNum in 1 ... (CARDCOUNT * PLAYERS) {
 	print("Deck has \(deck.count) cards")
 #endif
 
+// Okay, now let's begin the game...
+
+// Our boolean to determine if anyone won
+var gameOver = false
+
+// Where the cards are gonna go...
+var discardPile: [Card] = []
+
+// First person to play is next to the dealer (which
+// we will assume is 0)
+var currentPlayer = 1
+
+// And here begins the main loop
+repeat {
+	// Get the top card of the deck
+	var turnOver = false
+	repeat {
+		// Do we have any cards in the deck?
+		if deck.count == 0 {
+			// No, the deck is empty, so we need to
+			// transfer the discard pile back to the
+			// main deck...
+			deck = discardPile
+			// And reshuffle the deck
+			deck.shuffle()
+			// And clear out the discard pile
+			discardPile.removeAll()
+		}
+
+		// Pick up a card from the deck
+		var currentCard = deck.removeFirst()
+
+		// Can the player use this card?
+		var turn = players[currentPlayer].canPlayOn(currentCard)
+		if turn.successful {
+			// The player has a card that they can put on the
+			// discard pile!
+			discardPile.append(turn.card!)
+			turnOver = true
+		} else {
+			// The player does not have a playable card, so
+			// we need to start pulling cards from the deck
+			players[currentPlayer].hand.append(currentCard)
+		}
+	} while turnOver == false
+
+	// Is the current player out of cards? If so, the game is over
+	if players[currentPlayer].hand.count == 0 {
+		// Yep, they're out of cards, so this player won!
+		print("\(players[currentPlayer].name) won!")
+		gameOver = true
+	} else {
+		// The current player's turn is over, and the game
+		// is *not* over, so move on to the next player
+		currentPlayer += 1
+		if currentPlayer == PLAYERS {
+			currentPlayer = 0
+		}
+	}
+} while gameOver == false
