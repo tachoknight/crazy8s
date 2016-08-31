@@ -94,7 +94,11 @@ repeat {
 		var currentCard = deck.removeFirst()
 
 		// Can the player use this card?
-		var turn = players[currentPlayer].canPlayOn(currentCard)
+		#if os(Linux)
+			var turn = players[currentPlayer].canPlayOn(deckCard: currentCard)
+		#else
+			var turn = players[currentPlayer].canPlayOn(currentCard)
+		#endif
 		if turn.successful {
 			// The player has a card that they can put on the
 			// discard pile!
