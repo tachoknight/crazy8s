@@ -6,6 +6,7 @@ enum Suit: Int {
 	case Spades
 	case Diamonds
 	case Clubs
+	case NoSuit
 
 	func simpleDescription() -> String {
 		switch self {
@@ -17,6 +18,8 @@ enum Suit: Int {
 			return "diamonds"
 		case .Clubs:
 			return "clubs"
+		case .NoSuit:
+			return "no suit"
 		}
 	}
 
@@ -30,6 +33,8 @@ enum Suit: Int {
 			return "red"
 		case .Hearts:
 			return "red"
+		case .NoSuit:
+			return "none"
 		}
 	}
 
@@ -43,6 +48,8 @@ enum Suit: Int {
 			return "♦"
 		case .Hearts:
 			return "♥"
+		case .NoSuit:
+			return "NS"
 		}
 	}
 }
@@ -93,9 +100,17 @@ enum Rank: Int {
 	}
 }
 
-struct Card: CustomStringConvertible {
+//
+// The card struct/class that is what we're playing
+// with
+//
+struct Card: Hashable, CustomStringConvertible {
 	var rank: Rank
 	var suit: Suit
+	// For storing in dictionaries
+	var hashValue: Int {
+		return rank.rawValue + suit.rawValue
+	}
 
 	func simpleDescription() -> String {
 		return "The \(rank.simpleDescription()) of \(suit.simpleDescription())"
@@ -107,6 +122,14 @@ struct Card: CustomStringConvertible {
 	}
 }
 
+// For the Card class' equatable protocol
+func == (lhs: Card, rhs: Card) -> Bool {
+	return lhs.hashValue == rhs.hashValue
+}
+
+//
+// Function for creating a deck of cards
+//
 func createDeck() -> [Card] {
 	var n = 1
 	var deck = [Card]()

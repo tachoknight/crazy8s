@@ -103,6 +103,7 @@ repeat {
 			// The player has a card that they can put on the
 			// discard pile!
 			discardPile.append(turn.card!)
+			// And the player's turn is over
 			turnOver = true
 		} else {
 			// The player does not have a playable card, so
