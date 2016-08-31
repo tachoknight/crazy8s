@@ -2,11 +2,11 @@
 import Foundation
 
 enum Suit: Int {
-	case Hearts = 1
-	case Spades
-	case Diamonds
-	case Clubs
-	case NoSuit
+	case Hearts = 100
+	case Spades = 200
+	case Diamonds = 300
+	case Clubs = 400
+	case NoSuit = 0
 
 	func simpleDescription() -> String {
 		switch self {
