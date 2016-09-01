@@ -84,8 +84,11 @@ class Player {
 		// If we're here, then we have a valid card to play
 		// so we want to sort the weight map and pick the card
 		// with the most weight
-		let sortedKeys = handWeights.sortedKeysByValue( >)
-
+		#if os(Linux)
+			let sortedKeys = handWeights.sortedKeysByValue(isOrderedBefore: >)
+		#else
+			let sortedKeys = handWeights.sortedKeysByValue( >)
+		#endif
 		// Now get the top card
 		let topCard = sortedKeys.first
 		let topWeight = handWeights[topCard!]
@@ -103,7 +106,12 @@ class Player {
 			isEight = true
 			// Yes, we have an 8, so let's see which suite is the most
 			// represented in our hand
-			let sortedSuitKeys = suitDistribution.sortedKeysByValue( >)
+			#if os(Linux)
+				let sortedSuitKeys = suitDistribution.sortedKeysByValue(isOrderedBefore: >)
+			#else
+				let sortedSuitKeys = suitDistribution.sortedKeysByValue( >)
+			#endif
+
 			// Now get the top suit
 			newSuit = sortedSuitKeys.first!
 
