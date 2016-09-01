@@ -41,7 +41,11 @@ var deck = createDeck()
 	print("Now shuffling the deck...")
 #endif
 
-deck.shuffle()
+var shuffleLoop = 1
+repeat {
+    deck.shuffle()
+    shuffleLoop += 1
+} while shuffleLoop < 100
 
 #if DEBUG
 	for card in deck {
