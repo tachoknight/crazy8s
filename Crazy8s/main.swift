@@ -85,6 +85,10 @@ var discardPile: [Card] = []
 // we will assume is 0)
 var currentPlayer = 1
 
+// This is the card we're going to play, whether it's
+// from the discard pile or from the deck
+var currentCard = Card(rank: Rank.Ace, suit: Suit.NoSuit)
+
 // And here begins the main loop
 repeat {
 	// Get the top card of the deck
@@ -102,9 +106,10 @@ repeat {
 			discardPile.removeAll()
 		}
 
-		// Pick up a card from the deck
-		var currentCard = deck.removeFirst()
-
+        if turnOver == false {
+            currentCard = deck.removeFirst()
+        }
+        
 		// Can the player use this card?
 		#if os(Linux)
 			var turn = players[currentPlayer].canPlayOn(deckCard: currentCard)
@@ -115,12 +120,18 @@ repeat {
 			// The player has a card that they can put on the
 			// discard pile!
 			discardPile.append(turn.card!)
+            
+            // And the current card is what's on the top of the
+            // discard pile
+            currentCard = discardPile.last!
+
 			// And the player's turn is over
 			turnOver = true
 		} else {
 			// The player does not have a playable card, so
 			// we need to start pulling cards from the deck
 			players[currentPlayer].hand.append(currentCard)
+            
 		}
 	} while turnOver == false
 

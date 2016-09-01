@@ -111,7 +111,7 @@ struct Card: Hashable, CustomStringConvertible {
 	var hashValue: Int {
 		return rank.rawValue + suit.rawValue
 	}
-
+    
 	func simpleDescription() -> String {
 		return "The \(rank.simpleDescription()) of \(suit.simpleDescription())"
 	}

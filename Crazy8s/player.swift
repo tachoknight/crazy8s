@@ -8,8 +8,11 @@ class Player {
 	var currentTurn = 0
 
 	func canPlayOn(deckCard: Card) -> (successful: Bool, card: Card?, isEight: Bool?, newSuit: Suit?) {
-
-		var eightCount = 0
+        #if DEBUG
+            print("---> \(deckCard.description)")
+        #endif
+		
+        var eightCount = 0
 		var rankCount = 0
 		var suitCount = 0
 
@@ -29,7 +32,7 @@ class Player {
 		// then playing anything from the suit
 		for card in hand {
 			// Add to the suit distribution map
-			suitDistribution.updateValue(suitDistribution[deckCard.suit]! + 1, forKey: deckCard.suit)
+			suitDistribution.updateValue(suitDistribution[card.suit]! + 1, forKey: card.suit)
 
             var weight = 0
             
@@ -56,24 +59,32 @@ class Player {
 			}
 			print("----Weights for \(self.name)----")
             for (card, weight) in handWeights {
-                print("\t\(card.simpleDescription()) - \(weight)")
+                print("\t\(card.description) - \(weight)")
             }
 		#endif
 
 		// If all the counts are 0, then we didn't have a playable
 		// card and we're done
 		if eightCount == 0 && rankCount == 0 && suitCount == 0 {
-			return (false, nil, false, Suit.NoSuit)
+            #if DEBUG
+                print("No cards to play")
+            #endif
+			
+            return (false, nil, false, Suit.NoSuit)
 		}
 
 		// If we're here, then we have a valid card to play
         // so we want to sort the weight map and pick the card
         // with the most weight
-        handWeights.sortedKeysByValue(>)
+        let sortedKeys = handWeights.sortedKeysByValue(>)
         
         // Now get the top card
-        let topCard = handWeights.keys.first
-        let topWeight = handWeights.values.first
+        let topCard = sortedKeys.first
+        let topWeight = handWeights[topCard!]
+        
+        #if DEBUG
+            print("Top Card is \(topCard!.description) with weight of \(topWeight!)")
+        #endif
         
         var isEight = false
         var newSuit = Suit.NoSuit
@@ -84,15 +95,24 @@ class Player {
             isEight = true
             // Yes, we have an 8, so let's see which suite is the most
             // represented in our hand
-            suitDistribution.sortedKeysByValue(>)
+            let sortedSuitKeys = suitDistribution.sortedKeysByValue(>)
             // Now get the top suit
-            newSuit = suitDistribution.keys.first!
+            newSuit = sortedSuitKeys.first!
+            
+            #if DEBUG
+                print("Eight! We've picked \(newSuit.simpleDescription()) as the new suit")
+            #endif
+
         }
         
 		// And record the score for this turn
 		currentTurn += 1
 		scores[currentTurn] = topWeight
 
-		return (true, topCard, isEight, newSuit)
+        #if DEBUG
+            print("Returning \(topCard!.description)")
+        #endif
+		
+        return (true, topCard, isEight, newSuit)
 	}
 }
