@@ -96,7 +96,7 @@ var currentCard = deck.removeFirst()
 // We need to keep track of the suit separately from the played
 // card because a player may play an 8 and declare a new suit,
 // which the next player has to know about
-var currentSuit = Suit.NoSuit
+var currentSuit = currentCard.suit
 
 #if DEBUG
 	print("***** G A M E  S T A R T I N G *****")
