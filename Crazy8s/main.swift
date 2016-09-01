@@ -98,6 +98,10 @@ var currentCard = deck.removeFirst()
 // which the next player has to know about
 var currentSuit = Suit.NoSuit
 
+#if DEBUG
+	print("***** G A M E  S T A R T I N G *****")
+#endif
+
 //
 // And here begins the game
 //
@@ -164,3 +168,7 @@ repeat {
 		}
 	}
 } while gameOver == false
+
+#if DEBUG
+	print("***** G A M E  O V E R *****")
+#endif
