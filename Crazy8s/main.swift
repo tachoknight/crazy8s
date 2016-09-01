@@ -36,7 +36,11 @@ for idx in 1 ... PLAYERS {
 var deck = createDeck()
 var decks = 0
 repeat {
-	deck.appendContentsOf(createDeck())
+	#if os(Linux)
+		deck.append(contentsOf: createDeck())
+	#else
+		deck.appendContentsOf(createDeck())
+	#endif
 	decks += 1
 } while decks < 5000
 
