@@ -26,9 +26,21 @@ for idx in 1 ... PLAYERS {
 // Now set up the deck
 //
 
+#if DEBUG
+    print("Creating a deck...")
+#endif
+
 var deck = createDeck()
 
+#if DEBUG
+    print("Deck size is \(deck.count)")
+#endif
+
 // From the MutableCollectionType extension
+#if DEBUG
+    print("Now shuffling the deck...")
+#endif
+
 deck.shuffle()
 
 #if DEBUG

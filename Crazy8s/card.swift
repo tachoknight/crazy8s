@@ -134,10 +134,10 @@ func createDeck() -> [Card] {
 	var n = 1
 	var deck = [Card]()
 	while let rank = Rank(rawValue: n) {
-		var m = 1
+		var m = 100
 		while let suit = Suit(rawValue: m) {
 			deck.append(Card(rank: rank, suit: suit))
-			m += 1
+			m += 100
 		}
 		n += 1
 	}
