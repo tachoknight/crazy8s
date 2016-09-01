@@ -5,6 +5,8 @@ import Foundation
 // swiftc -DDEBUG card.swift extensions.swift main.swift player.swift
 //
 
+srand(UInt32(time(nil)))
+
 let PLAYERS = 4
 
 // How many cards do the players start with?
@@ -41,7 +43,11 @@ var deck = createDeck()
 	print("Now shuffling the deck...")
 #endif
 
-deck.shuffle()
+var shuffleLoop = 1
+repeat {
+    deck.shuffle()
+    shuffleLoop += 1
+} while shuffleLoop < 1000
 
 #if DEBUG
 	for card in deck {
@@ -98,6 +104,9 @@ var currentCard = deck.removeFirst()
 // which the next player has to know about
 var currentSuit = currentCard.suit
 
+// The count of turns in the game
+var gameTurns = 0
+
 #if DEBUG
 	print("***** G A M E  S T A R T I N G *****")
 #endif
@@ -112,6 +121,9 @@ repeat {
 	// Here begins a turn for a player
 	//
 	repeat {
+        // Increment the turn count for the whole game
+        gameTurns += 1
+
 		// Can the player use this card?
 		#if os(Linux)
 			var turn = players[currentPlayer].canPlayOn(deckCard: currentCard, orSuit: currentSuit)
@@ -124,9 +136,17 @@ repeat {
 			// No, the deck is empty, so we need to
 			// transfer the discard pile back to the
 			// main deck...
+            #if DEBUG
+                print("Deck is empty, shuffling the discard pile...")
+            #endif
+
 			deck = discardPile
 			// And reshuffle the deck
-			deck.shuffle()
+            shuffleLoop = 0
+            repeat {
+			    deck.shuffle()
+                shuffleLoop += 1
+            } while shuffleLoop < 1000
 			// And clear out the discard pile
 			discardPile.removeAll()
 		}
@@ -170,5 +190,6 @@ repeat {
 } while gameOver == false
 
 #if DEBUG
+    print("Game took \(gameTurns) turns")
 	print("***** G A M E  O V E R *****")
 #endif
