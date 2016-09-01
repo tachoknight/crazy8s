@@ -8,7 +8,7 @@ import Foundation
 // Make sure we have some better random numbers
 srand(UInt32(time(nil)))
 
-let PLAYERS = 4
+let PLAYERS = 15000
 
 // How many cards do the players start with?
 let CARDCOUNT = 8
@@ -34,6 +34,11 @@ for idx in 1 ... PLAYERS {
 #endif
 
 var deck = createDeck()
+var decks = 0
+repeat {
+	deck.appendContentsOf(createDeck())
+	decks += 1
+} while decks < 5000
 
 #if DEBUG
 	print("Deck size is \(deck.count)")
