@@ -47,7 +47,11 @@ var shuffleLoop = 1
 repeat {
     deck.shuffle()
     shuffleLoop += 1
+<<<<<<< HEAD
 } while shuffleLoop < 1000
+=======
+} while shuffleLoop < 100
+>>>>>>> b1ad2e9dc10588e49f190a76b8004aef7c1a2329
 
 #if DEBUG
 	for card in deck {
