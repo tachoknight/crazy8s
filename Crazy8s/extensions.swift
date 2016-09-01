@@ -34,19 +34,23 @@ import Foundation
 // For sorting a dictionary that contains [Card:Weight] (See player.swift)
 #if os(Linux)
 	extension Dictionary {
-		mutating func sortedKeys(isOrderedBefore: (Key, Key) -> Bool) -> [Key] {
-			return Array(self.keys).sort(isOrderedBefore)
+		func sortedKeys(isOrderedBefore: (Key, Key) -> Bool) -> [Key] {
+			var myArray = Array(self.keys)
+			myArray.sort(isOrderedBefore: isOrderedBefore)
+			return myArray
 		}
 
 		// Slower because of a lot of lookups, but probably takes less memory (this is equivalent to Pascals answer in an generic extension)
 		func sortedKeysByValue(isOrderedBefore: (Value, Value) -> Bool) -> [Key] {
-			return sortedKeys {
+			let mySortedKeys = sortedKeys {
 				isOrderedBefore(self[$0]!, self[$1]!)
 			}
+
+			return mySortedKeys
 		}
 
 		// Faster because of no lookups, may take more memory because of duplicating contents
-		mutating func keysSortedByValue(isOrderedBefore: (Value, Value) -> Bool) -> [Key] {
+		func keysSortedByValue(isOrderedBefore: (Value, Value) -> Bool) -> [Key] {
 			return Array(self)
 				.sort() {
 					let (_, lv) = $0
@@ -72,18 +76,20 @@ import Foundation
 			}
 		}
 
-		// Faster because of no lookups, may take more memory because of duplicating contents
-		func keysSortedByValue(isOrderedBefore: (Value, Value) -> Bool) -> [Key] {
-			return Array(self)
-				.sort() {
-					let (_, lv) = $0
-					let (_, rv) = $1
-					return isOrderedBefore(lv, rv)
-			}
-				.map {
-					let (k, _) = $0
-					return k
-			}
-		}
+		/*
+		 // Faster because of no lookups, may take more memory because of duplicating contents
+		 func keysSortedByValue(isOrderedBefore: (Value, Value) -> Bool) -> [Key] {
+		 return Array(self)
+		 .sort() {
+		 let (_, lv) = $0
+		 let (_, rv) = $1
+		 return isOrderedBefore(lv, rv)
+		 }
+		 .map {
+		 let (k, _) = $0
+		 return k
+		 }
+		 }
+		 */
 	}
 #endif
