@@ -61,11 +61,11 @@ class Player {
 		}
 
 		#if DEBUG
-			print("----Dist for \(self.name)----")
+			print("\t----Dist for \(self.name)----")
 			for (suit, count) in suitDistribution {
 				print("\t\(suit.symbol()) - \(count)")
 			}
-			print("----Weights for \(self.name)----")
+			print("\t----Weights for \(self.name)----")
 			for (card, weight) in handWeights {
 				print("\t\(card.description) - \(weight)")
 			}
@@ -124,7 +124,7 @@ class Player {
 			newSuit = topCard!.suit
 
 			#if DEBUG
-				print("Returning \(topCard!.description)")
+				print("\(self.name) is returning \(topCard!.description)")
 			#endif
 		}
 
