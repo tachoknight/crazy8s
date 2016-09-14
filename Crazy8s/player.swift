@@ -102,7 +102,7 @@ class Player {
 		// If the top card has a weight of 1000 or more, that's an 8
 		// and we need to switch to another suit, preferably one where
 		// we have a lot of cards to get rid of
-		if topWeight >= 1000 {
+		if topWeight! >= 1000 {
 			isEight = true
 			// Yes, we have an 8, so let's see which suite is the most
 			// represented in our hand

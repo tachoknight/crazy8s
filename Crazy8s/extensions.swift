@@ -36,7 +36,7 @@ import Foundation
 	extension Dictionary {
 		func sortedKeys(isOrderedBefore: (Key, Key) -> Bool) -> [Key] {
 			var myArray = Array(self.keys)
-			myArray.sort(isOrderedBefore: isOrderedBefore)
+			myArray.sort(by: isOrderedBefore)
 			return myArray
 		}
 
