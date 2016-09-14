@@ -6,12 +6,17 @@ import Foundation
 //
 
 // Make sure we have some better random numbers
-srand(UInt32(time(nil)))
+#if os(Linux)
+    srand(UInt32(time(nil)))
+#endif
 
 let PLAYERS = 15000
 
 // How many cards do the players start with?
 let CARDCOUNT = 8
+
+// How many decks do we want to use?
+let DECKS = 5000
 
 //
 // Set up the players first
@@ -39,10 +44,10 @@ repeat {
 	#if os(Linux)
 		deck.append(contentsOf: createDeck())
 	#else
-		deck.appendContentsOf(createDeck())
+		deck.append(contentsOf: createDeck())
 	#endif
 	decks += 1
-} while decks < 5000
+} while decks < DECKS
 
 #if DEBUG
 	print("Deck size is \(deck.count)")

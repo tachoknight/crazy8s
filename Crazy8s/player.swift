@@ -1,4 +1,24 @@
 import Foundation
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
 
 class Player {
 	var name: String = ""
@@ -7,7 +27,7 @@ class Player {
 	var scores: [Int: Int] = [:]
 	var currentTurn = 0
 
-	func canPlayOn(deckCard: Card, orSuit deckSuit: Suit) -> (successful: Bool, card: Card?, isEight: Bool?, newSuit: Suit?) {
+	func canPlayOn(_ deckCard: Card, orSuit deckSuit: Suit) -> (successful: Bool, card: Card?, isEight: Bool?, newSuit: Suit?) {
 		#if DEBUG
 			print("---> \(self.name) gets \(deckCard.description) and suit \(deckSuit.simpleDescription()) (\(deckSuit.symbol()))")
 		#endif
@@ -18,10 +38,10 @@ class Player {
 
 		// This map is for determining what our current distribution
 		// of cards to suits is
-		var suitDistribution: [Suit: Int] = [Suit.Hearts: 0,
-			Suit.Spades: 0,
-			Suit.Diamonds: 0,
-			Suit.Clubs: 0]
+		var suitDistribution: [Suit: Int] = [Suit.hearts: 0,
+			Suit.spades: 0,
+			Suit.diamonds: 0,
+			Suit.clubs: 0]
 
 		// And our hand, as a dictionary, with weights in terms of
 		// optimal play
@@ -38,17 +58,17 @@ class Player {
 
 			// Now let's get the counts of what we have in our hand based on
 			// the card from the deck
-			if card.rank == Rank.Eight {
+			if card.rank == Rank.eight {
 				weight += 1000
 				eightCount += 1
-			} else if card.rank == deckCard.rank && deckCard.rank != Rank.Eight {
+			} else if card.rank == deckCard.rank && deckCard.rank != Rank.eight {
 				weight += 100
 				rankCount += 1
 			} else if card.suit == deckSuit {
 				// If the deck card is an 8, then we want to bump up the suit weight
 				// because we don't care to match on the rank, but rather we can play
 				// any card in this suit
-				if deckCard.rank == Rank.Eight {
+				if deckCard.rank == Rank.eight {
 					weight += 500
 				} else {
 					weight += 10
@@ -78,7 +98,7 @@ class Player {
 				print("No cards to play")
 			#endif
 
-			return (false, nil, false, Suit.NoSuit)
+			return (false, nil, false, Suit.noSuit)
 		}
 
 		// If we're here, then we have a valid card to play
@@ -98,7 +118,7 @@ class Player {
 		#endif
 
 		var isEight = false
-		var newSuit = Suit.NoSuit
+		var newSuit = Suit.noSuit
 		// If the top card has a weight of 1000 or more, that's an 8
 		// and we need to switch to another suit, preferably one where
 		// we have a lot of cards to get rid of

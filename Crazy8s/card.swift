@@ -2,82 +2,82 @@
 import Foundation
 
 enum Suit: Int {
-	case Hearts = 100
-	case Spades = 200
-	case Diamonds = 300
-	case Clubs = 400
-	case NoSuit = 0
+	case hearts = 100
+	case spades = 200
+	case diamonds = 300
+	case clubs = 400
+	case noSuit = 0
 
 	func simpleDescription() -> String {
 		switch self {
-		case .Spades:
+		case .spades:
 			return "spades"
-		case .Hearts:
+		case .hearts:
 			return "hearts"
-		case .Diamonds:
+		case .diamonds:
 			return "diamonds"
-		case .Clubs:
+		case .clubs:
 			return "clubs"
-		case .NoSuit:
+		case .noSuit:
 			return "no suit"
 		}
 	}
 
 	func color() -> String {
 		switch self {
-		case .Spades:
+		case .spades:
 			return "black"
-		case .Clubs:
+		case .clubs:
 			return "black"
-		case .Diamonds:
+		case .diamonds:
 			return "red"
-		case .Hearts:
+		case .hearts:
 			return "red"
-		case .NoSuit:
+		case .noSuit:
 			return "none"
 		}
 	}
 
 	func symbol() -> String {
 		switch self {
-		case .Spades:
+		case .spades:
 			return "♠"
-		case .Clubs:
+		case .clubs:
 			return "♣"
-		case .Diamonds:
+		case .diamonds:
 			return "♦"
-		case .Hearts:
+		case .hearts:
 			return "♥"
-		case .NoSuit:
+		case .noSuit:
 			return "NS"
 		}
 	}
 }
 
 enum Rank: Int {
-	case Ace = 1
-	case Two
-	case Three
-	case Four
-	case Five
-	case Six
-	case Seven
-	case Eight
-	case Nine
-	case Ten
-	case Jack
-	case Queen
-	case King
+	case ace = 1
+	case two
+	case three
+	case four
+	case five
+	case six
+	case seven
+	case eight
+	case nine
+	case ten
+	case jack
+	case queen
+	case king
 
 	func simpleDescription() -> String {
 		switch self {
-		case .Ace:
+		case .ace:
 			return "ace"
-		case .Jack:
+		case .jack:
 			return "jack"
-		case .Queen:
+		case .queen:
 			return "queen"
-		case .King:
+		case .king:
 			return "king"
 		default:
 			return String(self.rawValue)
@@ -86,13 +86,13 @@ enum Rank: Int {
 
 	func symbol() -> String {
 		switch self {
-		case .Ace:
+		case .ace:
 			return "A"
-		case .Jack:
+		case .jack:
 			return "J"
-		case .Queen:
+		case .queen:
 			return "Q"
-		case .King:
+		case .king:
 			return "K"
 		default:
 			return String(self.rawValue)
