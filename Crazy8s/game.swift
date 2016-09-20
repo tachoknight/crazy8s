@@ -146,7 +146,7 @@ class Crazy8Game {
                 
                 // Can the player use this card?
                 #if os(Linux)
-                    let turn = players[currentPlayer].canPlayOn(deckCard: currentCard, orSuit: currentSuit)
+                    let turn = players[currentPlayer].canPlayOn(currentCard, orSuit: currentSuit)
                 #else
                     let turn = players[currentPlayer].canPlayOn(currentCard, orSuit: currentSuit)
                 #endif
