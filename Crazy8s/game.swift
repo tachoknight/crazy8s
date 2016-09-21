@@ -32,7 +32,7 @@ class Crazy8Game {
         self.init()
         
         self.playerCount = withPlayerCount
-        cardCount = 8
+        self.cardCount = 8
         
         calculateDeckCount()
         createDecks()
@@ -43,12 +43,13 @@ class Crazy8Game {
     }
     
     private func calculateDeckCount() {
-        guard playerCount != 0 else {
+        guard self.playerCount != 0 else {
             print("Need to set the player count first")
             return
         }
         
-        decksCount = playerCount / cardCount
+        self.decksCount = Int(Double(self.playerCount) * (1.0/4.0))
+        print("Deck count is \(self.decksCount)")
     }
     
     private func createDecks() {
@@ -60,7 +61,7 @@ class Crazy8Game {
                 self.deck.append(contentsOf: createDeck())
             #endif
             decks += 1
-        } while decks < decksCount
+        } while decks < self.decksCount
         #if DEBUG
             print("Deck size is \(self.deck.count)")
         #endif
@@ -71,11 +72,15 @@ class Crazy8Game {
             print("Now shuffling the deck...")
         #endif
         
-        var shuffleLoop = 1
-        repeat {
-            self.deck.shuffle()
-            shuffleLoop += 1
-        } while shuffleLoop < self.SHUFFLECOUNT
+        self.deck = {
+            var shuffleLoop = 1
+            repeat {
+                self.deck.shuffle()
+                shuffleLoop += 1
+            } while shuffleLoop < self.SHUFFLECOUNT
+            
+            return self.deck
+        }()
     }
     
     private func setupPlayers() {

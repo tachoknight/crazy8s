@@ -21,7 +21,7 @@
 		0F367E131D761CE300D7EA1E /* card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = card.swift; sourceTree = "<group>"; };
 		0F367E151D76253D00D7EA1E /* extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		0F367E171D76297F00D7EA1E /* player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = player.swift; sourceTree = "<group>"; };
-		0F5844741D918EC1005978A0 /* game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = game.swift; path = Crazy8s/game.swift; sourceTree = "<group>"; };
+		0F5844741D918EC1005978A0 /* game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = game.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,7 +38,6 @@
 		0F367E001D761BE800D7EA1E = {
 			isa = PBXGroup;
 			children = (
-				0F5844741D918EC1005978A0 /* game.swift */,
 				0F367E0A1D761BE800D7EA1E /* Crazy8s */,
 				0F367E091D761BE800D7EA1E /* Products */,
 			);
@@ -55,6 +54,7 @@
 		0F367E0A1D761BE800D7EA1E /* Crazy8s */ = {
 			isa = PBXGroup;
 			children = (
+				0F5844741D918EC1005978A0 /* game.swift */,
 				0F367E0B1D761BE800D7EA1E /* main.swift */,
 				0F367E0D1D761BE800D7EA1E /* Info.plist */,
 				0F367E131D761CE300D7EA1E /* card.swift */,
