@@ -1,4 +1,6 @@
 import Foundation
+
+
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
@@ -83,11 +85,11 @@ class Player {
 		#if DEBUG
 			showOutput("\t----Dist for \(self.name)----")
 			for (suit, count) in suitDistribution {
-				print("\t\(suit.symbol()) - \(count)")
+				showOutput("\t\(suit.symbol()) - \(count)")
 			}
 			showOutput("\t----Weights for \(self.name)----")
 			for (card, weight) in handWeights {
-				print("\t\(card.description) - \(weight)")
+				showOutput("\t\(card.description) - \(weight)")
 			}
 		#endif
 

@@ -202,7 +202,7 @@ class Crazy8Game {
             // Is the current player out of cards? If so, the game is over
             if self.players[currentPlayer].hand.count == 0 {
                 // Yep, they're out of cards, so this player won!
-                print("\(self.players[currentPlayer].name) won!")
+                showOutput("\(self.players[currentPlayer].name) won!")
                 gameOver = true
             } else {
                 // The current player's turn is over, and the game
@@ -213,10 +213,11 @@ class Crazy8Game {
                 }
             }
         } while gameOver == false
-        
         #if DEBUG
             showOutput("Game took \(gameTurns) turns")
             showOutput("***** G A M E  O V E R *****")
+            showOutput("ZZZZZZ")
         #endif
+            print("Game is done, fyi")
     }
 }
