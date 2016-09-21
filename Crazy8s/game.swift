@@ -49,7 +49,7 @@ class Crazy8Game {
         }
         
         self.decksCount = Int(Double(self.playerCount) * (1.0/4.0))
-        print("Deck count is \(self.decksCount)")
+        showOutput("Deck count is \(self.decksCount)")
     }
     
     private func createDecks() {
@@ -63,13 +63,13 @@ class Crazy8Game {
             decks += 1
         } while decks < self.decksCount
         #if DEBUG
-            print("Deck size is \(self.deck.count)")
+            showOutput("Deck size is \(self.deck.count)")
         #endif
     }
     
     private func shuffleDecks() {
         #if DEBUG
-            print("Now shuffling the deck...")
+            showOutput("Now shuffling the deck...")
         #endif
         
         self.deck = {
@@ -133,7 +133,7 @@ class Crazy8Game {
         var shuffleLoop = 1
         
         #if DEBUG
-            print("***** G A M E  S T A R T I N G *****")
+            showOutput("***** G A M E  S T A R T I N G *****")
         #endif
         
         //
@@ -162,7 +162,7 @@ class Crazy8Game {
                     // transfer the discard pile back to the
                     // main deck...
                     #if DEBUG
-                        print("Deck is empty, shuffling the discard pile...")
+                        showOutput("Deck is empty, shuffling the discard pile...")
                     #endif
                     
                     self.deck = discardPile
@@ -215,8 +215,8 @@ class Crazy8Game {
         } while gameOver == false
         
         #if DEBUG
-            print("Game took \(gameTurns) turns")
-            print("***** G A M E  O V E R *****")
+            showOutput("Game took \(gameTurns) turns")
+            showOutput("***** G A M E  O V E R *****")
         #endif
     }
 }

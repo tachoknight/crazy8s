@@ -29,7 +29,7 @@ class Player {
 
 	func canPlayOn(_ deckCard: Card, orSuit deckSuit: Suit) -> (successful: Bool, card: Card?, isEight: Bool?, newSuit: Suit?) {
 		#if DEBUG
-			print("---> \(self.name) gets \(deckCard.description) and suit \(deckSuit.simpleDescription()) (\(deckSuit.symbol()))")
+			showOutput("---> \(self.name) gets \(deckCard.description) and suit \(deckSuit.simpleDescription()) (\(deckSuit.symbol()))")
 		#endif
 
 		var eightCount = 0
@@ -81,11 +81,11 @@ class Player {
 		}
 
 		#if DEBUG
-			print("\t----Dist for \(self.name)----")
+			showOutput("\t----Dist for \(self.name)----")
 			for (suit, count) in suitDistribution {
 				print("\t\(suit.symbol()) - \(count)")
 			}
-			print("\t----Weights for \(self.name)----")
+			showOutput("\t----Weights for \(self.name)----")
 			for (card, weight) in handWeights {
 				print("\t\(card.description) - \(weight)")
 			}
@@ -95,7 +95,7 @@ class Player {
 		// card and we're done
 		if eightCount == 0 && rankCount == 0 && suitCount == 0 {
 			#if DEBUG
-				print("No cards to play")
+				showOutput("No cards to play")
 			#endif
 
 			return (false, nil, false, Suit.noSuit)
@@ -114,7 +114,7 @@ class Player {
 		let topWeight = handWeights[topCard!]
 
 		#if DEBUG
-			print("Top Card is \(topCard!.description) with weight of \(topWeight!)")
+			showOutput("Top Card is \(topCard!.description) with weight of \(topWeight!)")
 		#endif
 
 		var isEight = false
@@ -136,7 +136,7 @@ class Player {
 			newSuit = sortedSuitKeys.first!
 
 			#if DEBUG
-				print("Eight! We've picked \(newSuit.simpleDescription()) as the new suit")
+				showOutput("Eight! We've picked \(newSuit.simpleDescription()) as the new suit")
 			#endif
 		} else {
 			// We are not playing an 8, so the suit will be the same as the card,
@@ -144,7 +144,7 @@ class Player {
 			newSuit = topCard!.suit
 
 			#if DEBUG
-				print("\(self.name) is returning \(topCard!.description)")
+				showOutput("\(self.name) is returning \(topCard!.description)")
 			#endif
 		}
 
@@ -156,8 +156,8 @@ class Player {
 		self.hand = self.hand.filter() { $0 != topCard }
 
 		#if DEBUG
-			print("\(self.name) has \(self.hand.count) cards")
-			print("Returning \(topCard!.description)")
+			showOutput("\(self.name) has \(self.hand.count) cards")
+			showOutput("Returning \(topCard!.description)")
 		#endif
 
 		return (true, topCard, isEight, newSuit)

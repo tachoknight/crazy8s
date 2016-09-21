@@ -5,5 +5,13 @@ import Foundation
 // swiftc -DDEBUG game.swift card.swift extensions.swift main.swift player.swift
 //
 
-var c8Game = Crazy8Game(playerCount: 4000)
+
+func showOutput(_ text: String) {
+    let timeDelay = DispatchTime.now() + .seconds(60)
+    DispatchQueue.main.asyncAfter(deadline: timeDelay) {
+        print(text)
+    }
+}
+
+var c8Game = Crazy8Game(playerCount: 10)
 c8Game.playGame()
