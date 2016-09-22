@@ -10,7 +10,7 @@ let backgroundQueue = DispatchQueue(label: "game.queue",
                                     qos: .background,
                                     target: nil)
 
-let serialQueue = DispatchQueue(label: "log.queue", qos: .background, target: nil)
+let serialQueue = DispatchQueue(label: "log.queue")
 
 // http://ericasadun.com/2016/03/08/swift-queue-fun/
 public struct Queue<T>: ExpressibleByArrayLiteral {
@@ -25,14 +25,16 @@ public struct Queue<T>: ExpressibleByArrayLiteral {
     }
     
     /// remove the front of the queue in O(`count` time
-    public mutating func pop() -> T {
+    public mutating func pop() -> T? {
         var retValue: T? = nil
         
         serialQueue.sync {
-            retValue = elements.removeFirst()
+            if isEmpty == false {
+                retValue = elements.removeFirst()
+            }
         }
         
-        return retValue!
+        return retValue
     }
     
     /// test whether the queue is empty
@@ -59,9 +61,9 @@ public struct Queue<T>: ExpressibleByArrayLiteral {
 var gameQueue = Queue<String>()
 
 func showOutput(_ text: String) {
-    backgroundQueue.async {
-        gameQueue.push(text)
-    }
+    //backgroundQueue.async {
+    gameQueue.push(text)
+    //}
 }
 
 /*
@@ -83,14 +85,20 @@ func showOutput(_ text: String) {
  }
  */
 
-var c8Game = Crazy8Game(playerCount: 4000)
-c8Game.playGame()
+backgroundQueue.async {
+    var c8Game = Crazy8Game(playerCount: 4000)
+    c8Game.playGame()
+}
 
 var logLine: String = ""
 repeat {
-    logLine = gameQueue.pop()
+
+    guard let logLine = gameQueue.pop() as Optional else {
+        continue
+    }
+    
     print(logLine)
-    sleep(10)
+    sleep(1)
 } while logLine != "ZZZZZZ"
 
 //sleep(60*5)
