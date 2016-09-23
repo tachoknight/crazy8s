@@ -97,7 +97,8 @@ for num in 0 ..< simutaneousGames {
         #else
             let numOfPlayers = Int(arc4random_uniform(1000) + 1)
         #endif
-        var c8Game = Crazy8Game(playerCount: numOfPlayers, gameNumber: (num + 1))
+      
+        var c8Game = Crazy8Game(playerCount: numOfPlayers < 4 ? numOfPlayers + 4 : numOfPlayers, gameNumber: (num + 1))
         c8Game.playGame()
     }
 }
