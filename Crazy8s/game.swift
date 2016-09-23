@@ -16,6 +16,8 @@ class Crazy8Game {
     var cardCount = 0
     var decksCount = 0
     
+    var gameNumber = 0
+    
     // The acual players of the game
     var players = [Player]()
     
@@ -28,18 +30,34 @@ class Crazy8Game {
         #endif
     }
     
-    convenience init(playerCount withPlayerCount: Int) {
-        self.init()
-        
-        self.playerCount = withPlayerCount
-        self.cardCount = 8
-        
+    private func setupGame() {
         calculateDeckCount()
         createDecks()
         shuffleDecks()
         
         setupPlayers()
         dealCards()
+    }
+    
+    convenience init(playerCount withPlayerCount: Int) {
+        self.init()
+        
+        self.playerCount = withPlayerCount
+        self.cardCount = 8
+        
+        setupGame()
+    }
+    
+    convenience init(playerCount withPlayerCount: Int, gameNumber: Int) {
+        self.init()
+        
+        print("Starting game \(gameNumber) with \(withPlayerCount) players")
+        
+        self.playerCount = withPlayerCount
+        self.cardCount = 8
+        self.gameNumber = gameNumber
+        
+        setupGame()
     }
     
     private func calculateDeckCount() {
@@ -49,7 +67,7 @@ class Crazy8Game {
         }
         
         self.decksCount = Int(Double(self.playerCount) * (1.0/4.0))
-        showOutput("Deck count is \(self.decksCount)")
+        showOutput("\(self.gameNumber) Deck count is \(self.decksCount)")
     }
     
     private func createDecks() {
@@ -63,13 +81,13 @@ class Crazy8Game {
             decks += 1
         } while decks < self.decksCount
         #if DEBUG
-            showOutput("Deck size is \(self.deck.count)")
+            showOutput("\(self.gameNumber) Deck size is \(self.deck.count)")
         #endif
     }
     
     private func shuffleDecks() {
         #if DEBUG
-            showOutput("Now shuffling the deck...")
+            showOutput("\(self.gameNumber) Now shuffling the deck...")
         #endif
         
         self.deck = {
@@ -133,7 +151,7 @@ class Crazy8Game {
         var shuffleLoop = 1
         
         #if DEBUG
-            showOutput("***** G A M E  S T A R T I N G *****")
+            showOutput("\(self.gameNumber) ***** G A M E  S T A R T I N G *****")
         #endif
         
         //
@@ -162,7 +180,7 @@ class Crazy8Game {
                     // transfer the discard pile back to the
                     // main deck...
                     #if DEBUG
-                        showOutput("Deck is empty, shuffling the discard pile...")
+                        showOutput("\(self.gameNumber) Deck is empty, shuffling the discard pile...")
                     #endif
                     
                     self.deck = discardPile
@@ -202,7 +220,7 @@ class Crazy8Game {
             // Is the current player out of cards? If so, the game is over
             if self.players[currentPlayer].hand.count == 0 {
                 // Yep, they're out of cards, so this player won!
-                showOutput("\(self.players[currentPlayer].name) won!")
+                showOutput("\(self.gameNumber) \(self.players[currentPlayer].name) won!")
                 gameOver = true
             } else {
                 // The current player's turn is over, and the game
@@ -214,10 +232,10 @@ class Crazy8Game {
             }
         } while gameOver == false
         #if DEBUG
-            showOutput("Game took \(gameTurns) turns")
-            showOutput("***** G A M E  O V E R *****")
+            showOutput("\(self.gameNumber) Game took \(gameTurns) turns")
+            showOutput("\(self.gameNumber) ***** G A M E  O V E R *****")
             showOutput("ZZZZZZ")
         #endif
-            print("Game is done, fyi")
+            print("\(self.gameNumber) Game is done, fyi")
     }
 }

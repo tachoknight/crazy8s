@@ -7,8 +7,7 @@ import Dispatch
 //
 
 let backgroundQueue = DispatchQueue(label: "game.queue",
-                                    qos: .background,
-                                    target: nil)
+                                    attributes: .concurrent)
 
 let serialQueue = DispatchQueue(label: "log.queue")
 
@@ -85,20 +84,33 @@ func showOutput(_ text: String) {
  }
  */
 
-backgroundQueue.async {
-    var c8Game = Crazy8Game(playerCount: 4000)
-    c8Game.playGame()
+var simutaneousGames = 5
+for num in 0 ..< simutaneousGames {
+    print("Starting game \(num)")
+    backgroundQueue.async {
+        let numOfPlayers = Int(arc4random_uniform(1000) + 1)
+        var c8Game = Crazy8Game(playerCount: numOfPlayers, gameNumber: (num + 1))
+        c8Game.playGame()
+    }
 }
 
 var logLine: String = ""
+var allGamesDone = false
+var gameDoneCount = 0
 repeat {
 
     guard let logLine = gameQueue.pop() as Optional else {
         continue
     }
+    if (logLine.contains("ZZZZZ")) {
+        gameDoneCount += 1
+        if gameDoneCount == simutaneousGames {
+            allGamesDone = true
+        }
+    }
     
     print(logLine)
     sleep(1)
-} while logLine != "ZZZZZZ"
+} while allGamesDone == false
 
 //sleep(60*5)
