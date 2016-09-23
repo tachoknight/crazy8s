@@ -84,11 +84,19 @@ func showOutput(_ text: String) {
  }
  */
 
-var simutaneousGames = 5
+#if os(Linux)
+    srand(UInt32(time(nil)))
+#endif
+
+var simutaneousGames = 50
 for num in 0 ..< simutaneousGames {
     print("Starting game \(num)")
     backgroundQueue.async {
-        let numOfPlayers = Int(arc4random_uniform(1000) + 1)
+        #if os(Linux)
+            let numOfPlayers = Int(random() % 1000)
+        #else
+            let numOfPlayers = Int(arc4random_uniform(1000) + 1)
+        #endif
         var c8Game = Crazy8Game(playerCount: numOfPlayers, gameNumber: (num + 1))
         c8Game.playGame()
     }
