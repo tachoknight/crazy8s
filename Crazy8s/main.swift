@@ -65,61 +65,44 @@ func showOutput(_ text: String) {
     //}
 }
 
-/*
- func showOutput(_ text: String) {
- let timeDelay = DispatchTime.now() + .seconds(60)
- /*
- DispatchQueue.main.asyncAfter(deadline: timeDelay) {
- print(text)
- }
- */
- /*
- backgroundQueue.async {
- print(text)
- }
- */
- serialQueue.sync {
- print(text)
- }
- }
- */
 
 #if os(Linux)
-    srand(UInt32(time(nil)))
+srand(UInt32(time(nil)))
 #endif
 
-var simutaneousGames = 50
-for num in 0 ..< simutaneousGames {
-    print("Starting game \(num)")
-    backgroundQueue.async {
-        #if os(Linux)
-            let numOfPlayers = Int(random() % 1000)
-        #else
-            let numOfPlayers = Int(arc4random_uniform(1000) + 1)
-        #endif
-      
-        var c8Game = Crazy8Game(playerCount: numOfPlayers < 4 ? numOfPlayers + 4 : numOfPlayers, gameNumber: (num + 1))
-        c8Game.playGame()
-    }
+var gameNum = 0
+
+print("Starting game \(gameNum)")
+backgroundQueue.async {
+    #if os(Linux)
+        let numOfPlayers = Int(random() % 1000)
+    #else
+        let numOfPlayers = Int(arc4random_uniform(1000) + 1)
+    #endif
+    
+    var c8Game = Crazy8Game(playerCount: numOfPlayers < 4 ? numOfPlayers + 4 : numOfPlayers, gameNumber: (gameNum + 1))
+    c8Game.playGame()
 }
 
 var logLine: String = ""
-var allGamesDone = false
-var gameDoneCount = 0
-repeat {
+var gameDone = false
 
+repeat {    
     guard let logLine = gameQueue.pop() as Optional else {
         continue
     }
+    
     if (logLine.contains("ZZZZZ")) {
-        gameDoneCount += 1
-        if gameDoneCount == simutaneousGames {
-            allGamesDone = true
-        }
+        gameDone = true
+    } else {
+        print(logLine)
     }
     
-    print(logLine)
-    sleep(1)
-} while allGamesDone == false
-
-//sleep(60*5)
+    #if os(Linux)
+        let pauseTime = Int(random() % 5)
+    #else
+        let pauseTime = Int(arc4random_uniform(5) + 1)
+    #endif
+    
+    sleep(UInt32(pauseTime))
+} while gameDone == false

@@ -51,7 +51,7 @@ class Crazy8Game {
     convenience init(playerCount withPlayerCount: Int, gameNumber: Int) {
         self.init()
         
-        print("Starting game \(gameNumber) with \(withPlayerCount) players")
+        showOutput("Starting game \(gameNumber) with \(withPlayerCount) players")
         
         self.playerCount = withPlayerCount
         self.cardCount = 8
@@ -86,15 +86,16 @@ class Crazy8Game {
     }
     
     private func shuffleDecks() {
-        #if DEBUG
-            showOutput("\(self.gameNumber) Now shuffling the deck...")
-        #endif
+        showOutput("\(self.gameNumber) Now shuffling the deck...")
         
         self.deck = {
             var shuffleLoop = 1
             repeat {
                 self.deck.shuffle()
                 shuffleLoop += 1
+                if shuffleLoop % 100 == 0 {
+                    showOutput("...shuffle shuffle shuffle...")
+                }
             } while shuffleLoop < self.SHUFFLECOUNT
             
             return self.deck
@@ -150,9 +151,9 @@ class Crazy8Game {
         
         var shuffleLoop = 1
         
-        #if DEBUG
-            showOutput("\(self.gameNumber) ***** G A M E  S T A R T I N G *****")
-        #endif
+        
+        showOutput("***** G A M E  \(self.gameNumber)  S T A R T I N G *****")
+        
         
         //
         // And here begins the game
@@ -231,11 +232,10 @@ class Crazy8Game {
                 }
             }
         } while gameOver == false
-        #if DEBUG
-            showOutput("\(self.gameNumber) Game took \(gameTurns) turns")
-            showOutput("\(self.gameNumber) ***** G A M E  O V E R *****")
-            showOutput("ZZZZZZ")
-        #endif
-            print("\(self.gameNumber) Game is done, fyi")
+        
+        showOutput("\(self.gameNumber) - Game took \(gameTurns) turns")
+        showOutput("\(self.gameNumber) - ***** G A M E  O V E R *****")
+        showOutput("ZZZZZZ")
+        
     }
 }
