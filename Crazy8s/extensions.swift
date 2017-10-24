@@ -11,7 +11,7 @@ import Foundation
 			for i in startIndex ..< endIndex - 1 {
 				let j = Int(random() % (endIndex - i)) + i
 				guard i != j else { continue }
-				swap(&self[i], &self[j])
+				swapAt(i, j)
 			}
 		}
 	}
@@ -36,7 +36,7 @@ import Foundation
 	extension Dictionary {
 		func sortedKeys(isOrderedBefore: (Key, Key) -> Bool) -> [Key] {
 			var myArray = Array(self.keys)
-			myArray.sort(isOrderedBefore: isOrderedBefore)
+			myArray.sort(by: isOrderedBefore)
 			return myArray
 		}
 

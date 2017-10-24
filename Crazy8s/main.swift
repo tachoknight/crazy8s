@@ -141,7 +141,7 @@ repeat {
 
 		// Can the player use this card?
 		#if os(Linux)
-			var turn = players[currentPlayer].canPlayOn(deckCard: currentCard, orSuit: currentSuit)
+			var turn = players[currentPlayer].canPlayOn(currentCard, orSuit: currentSuit)
 		#else
 			var turn = players[currentPlayer].canPlayOn(currentCard, orSuit: currentSuit)
 		#endif
