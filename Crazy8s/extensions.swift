@@ -4,7 +4,7 @@ import Foundation
 #if os(Linux)
 	extension MutableCollection where Index == Int {
 		/// Shuffle the elements of `self` in-place.
-		mutating func shuffle() {
+		mutating func myShuffle() {
 			// empty and single-element collections don't shuffle
 			if count < 2 { return }
 
@@ -18,7 +18,7 @@ import Foundation
 #else
 	extension MutableCollection where Index == Int {
 		/// Shuffle the elements of `self` in-place.
-		mutating func shuffle() {
+		mutating func myShuffle() {
 			// empty and single-element collections don't shuffle
 			if count < 2 { return }
 
