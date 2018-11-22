@@ -60,7 +60,7 @@ repeat {
 
 var shuffleLoop = 1
 repeat {
-	deck.shuffle()
+	deck.myShuffle()
 	shuffleLoop += 1
 } while shuffleLoop < 1000
 
