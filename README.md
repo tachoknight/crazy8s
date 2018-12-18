@@ -1,7 +1,7 @@
 # Crazy Eights
 
 ## tl;dr
-The game [Crazy Eights](https://en.wikipedia.org/wiki/Crazy_Eights) implemented in Swift (Swift 3 compatible).
+The game [Crazy Eights](https://en.wikipedia.org/wiki/Crazy_Eights) implemented in Swift (Swift 4 compatible).
 
 ## Rationale
 My daughter taught me the game [Crazy Eights](https://en.wikipedia.org/wiki/Crazy_Eights) while we were on vacation and it seemed like it was easy enough to implement as a way to learn how to do cross Linux/macOS Swift development, where the macOS verison was still using 2.2 syntax, while Linux uses a Swift 3 preview build. I also wanted to write a self-playing game. 
